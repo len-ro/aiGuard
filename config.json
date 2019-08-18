@@ -1,0 +1,46 @@
+{
+    "timeout": 10,
+    "logging": {
+        "version": 1,
+        "formatters": {
+            "aiGuard": {
+                "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+                "datefmt": "%Y-%m-%d %H:%M:%S"
+            }
+        },
+        "handlers": {
+            "default": { 
+                "level": "INFO",
+                "formatter": "aiGuard",
+                "class": "logging.StreamHandler"
+            },
+            "file": {
+                "class": "logging.handlers.RotatingFileHandler",
+                "formatter": "aiGuard",
+                "filename": "aiGuard.log",
+                "maxBytes": 1048576,
+                "backupCount": 10
+            }
+        },
+        "loggers": {
+            "": {
+                "handlers": ["file", "default"],
+                "level": "INFO",
+                "propagate": true
+            }
+        }
+    },
+    "profiles": [
+        {"name": "person-notify"}
+    ],
+    "directories": {
+        "outside": {
+            "path": "/home/len/tmp/test/outside",
+            "regexp": [".+\\.jpg"]
+        },
+        "inside": {
+            "path": "/home/len/tmp/test/inside",
+            "regexp": [".+\\.jpg"]
+        }
+    }
+}
