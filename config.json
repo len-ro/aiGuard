@@ -69,19 +69,22 @@
                 }
             ]
         },
-        "classify": {}
+        "classify": {
+            "classes": [
+                {
+                    "name": "check",
+                    "detections": {
+                        "mode": "move"
+                    }
+                }
+            ]
+        }
     },
     "directories": {
-        "outside": {
-            "path": "/home/len/tmp/test/outside",
+        "la-intrare": {
+            "path": "/home/vsftpd/cerberusOnahill/ipcam/la-intrare",
             "regexp": ".+\\.jpg",
             "processor": "notifyPerson",
-            "processFirst": "true"
-        },
-        "inside": {
-            "path": "/home/len/tmp/test/inside",
-            "regexp": ".+\\.jpg",
-            "processor": "classify",
             "processFirst": "true"
         }
     },
