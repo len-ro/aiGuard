@@ -30,17 +30,68 @@
             }
         }
     },
-    "profiles": [
-        {"name": "person-notify"}
-    ],
+    "processors": {
+        "notifyPerson": {
+            "actions": {
+                "pushover": {
+                    "api-token": "ajzi7u3m1dffaojos87j16mm4eb9qc",
+                    "user-key": "uzrz8dvxhwcmb6c4v153ik2ugr2sze",
+                    "active": "false"
+                }
+            },
+            "classes": [
+                {   
+                    "name": "nothing", 
+                    "detections": {
+                        "mode": "none"
+                    }
+                },
+                {
+                    "name": "hot", 
+                    "detections": {
+                        "mode": "any", 
+                        "keys": ["person"]
+                    },
+                    "action": "pushover"
+                },
+                {
+                    "name": "common", 
+                    "detections": {
+                        "mode": "all", 
+                        "keys": ["cow", "bench", "horse", "cup", "dog", "bird", "chair", "dining table", "sheep"]
+                    }
+                },
+                {
+                    "name": "check",
+                    "detections": {
+                        "mode": "move"
+                    }
+                }
+            ]
+        },
+        "classify": {}
+    },
     "directories": {
         "outside": {
             "path": "/home/len/tmp/test/outside",
-            "regexp": [".+\\.jpg"]
+            "regexp": ".+\\.jpg",
+            "processor": "notifyPerson",
+            "processFirst": "true"
         },
         "inside": {
             "path": "/home/len/tmp/test/inside",
-            "regexp": [".+\\.jpg"]
+            "regexp": ".+\\.jpg",
+            "processor": "classify",
+            "processFirst": "true"
         }
+    },
+    "detector": {
+        "type": "YOLOv3",
+        "model": "models/yolo.h5",
+        "fallback": {
+            "type": "RetinaNet",
+            "model": "models/resnet50_coco_best_v2.0.1.h5"
+        },
+        "outdir": "processed"
     }
 }
