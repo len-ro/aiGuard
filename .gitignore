@@ -105,3 +105,4 @@ venv.bak/
 
 models/*.h5
 aiSentry.py
+*.log
