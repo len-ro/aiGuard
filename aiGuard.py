@@ -82,7 +82,9 @@ class aiGuard:
 
         while True:
             input_path = self.queue.get()
-            if input_path == False: #termination condition
+            if input_path == False: #termination condition 
+                with self.queue.mutex:
+                    self.queue.queue.clear()       
                 self.queue.task_done()
                 break
             if os.path.isfile(input_path):
@@ -167,9 +169,6 @@ class aiGuard:
 
         self.observer.stop()
         self.observer.join()
-
-        with self.queue.mutex:
-            self.queue.queue.clear()
         
         self.queue.join()
         self.detector.join()
