@@ -98,7 +98,7 @@ class Processor():
                     self.process_features(input_image, output_image, subdir, subdir_src, detections, action)
                     return
             
-            if d['mode'] == 'copy':
+            if d['mode'] == 'move':
                 self.logger.info("[move] %s, moving to %s" % (input_image, subdir))
                 self.process_features(input_image, output_image, subdir, subdir_src, detections, action)
                 return                
