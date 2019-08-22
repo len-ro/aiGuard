@@ -41,7 +41,7 @@ class DirEventHandler(RegexMatchingEventHandler):
         file_size = -1
         while file_size != os.path.getsize(event.src_path):
             file_size = os.path.getsize(event.src_path)
-            time.sleep(1)
+            time.sleep(2)
         self.process_function(event.src_path)        
 
 class aiGuard:
@@ -89,7 +89,10 @@ class aiGuard:
                 dirname, basename = os.path.split(input_path)
                 output_image = os.path.join(self.mk_subdir(dirname, config['outdir']), basename)
                 self.logger.info("Analysing new file %s -> %s" % (input_path, output_image))
-                detections = detector.detectObjectsFromImage(input_image=input_path, output_image_path=output_image)
+                try:
+                    detections = detector.detectObjectsFromImage(input_image=input_path, output_image_path=output_image)
+                except:
+                    self.logger.error("Unexpected error in detectObjectsFromImage", exc_info=1)
                 #process file
                 if dirname in self.processors:
                     processor = self.processors[dirname]
