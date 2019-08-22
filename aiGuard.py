@@ -167,6 +167,9 @@ class aiGuard:
 
         self.observer.stop()
         self.observer.join()
+
+        with self.queue.mutex:
+            self.queue.queue.clear()
         
         self.queue.join()
         self.detector.join()
