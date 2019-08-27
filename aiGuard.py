@@ -64,7 +64,7 @@ class aiGuard:
             #sys.path.append(plugin_type) #https://stackoverflow.com/questions/25997185/python-importerror-import-by-filename-is-not-supported
             module = __import__('%s.%s' % (plugin_type, plugin_name))
             p_class = getattr(module, plugin_name)
-            p_instance = p_class(config)
+            p_instance = p_class[plugin_name](config)
             loaded_plugins[plugin_name] = p_instance 
             return p_instance
         else:
