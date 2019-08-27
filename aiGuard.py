@@ -50,7 +50,7 @@ class aiGuard:
         self.setup_logging()
         self.observer = Observer()
         self.queue = Queue(10)
-        self.setup_actions(config['actions'])
+        self.setup_actions(self.config['actions'])
         self.processors = {}
         for p_name in self.config['processors']:
             p_config = self.config['processors'][p_name]
