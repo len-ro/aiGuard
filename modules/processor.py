@@ -43,7 +43,8 @@ class Processor():
         self.store_detections_in_exif([input_image, output_image], detections)
         
         try:
-            if action in self.config.actions:
+            if action in self.config['actions']:
+                action_instance = self.config['actions'][action]
                 action_instance.action(action_message, input_image)
         except:
             self.logger.error("Unexpected error in action", exc_info=1)
