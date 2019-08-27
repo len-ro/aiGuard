@@ -50,10 +50,32 @@ class aiGuard:
         self.setup_logging()
         self.observer = Observer()
         self.queue = Queue(10)
-        
+        self.setup_actions(config['actions'])
         self.processors = {}
         for p_name in self.config['processors']:
-            self.processors[p_name] = Processor(self.config['processors'][p_name])
+            p_config = self.config['processors'][p_name]
+            p_config.actions = self.actions
+            self.processors[p_name] = Processor(p_config)
+
+    def plugin(self, plugin_type, plugin_name, config):
+        loaded_plugins = self.__dict__[plugin_type]
+        if not plugin_name in loaded_plugins:
+            self.logger.info('creating plugin %s %s', plugin_type, plugin_name)
+            sys.path.append(plugin_type) #https://stackoverflow.com/questions/25997185/python-importerror-import-by-filename-is-not-supported
+            module = __import__(plugin_name)
+            p_class = getattr(module, plugin_name)
+            p_instance = p_class(config)
+            loaded_plugins[plugin_name] = p_instance 
+            return p_instance
+        else:
+            p_instance = loaded_plugins[plugin_name]
+            return p_instance
+
+    def setup_actions(self, actions):
+        self.actions = {}
+        if actions:
+            for a_name in actions:
+                self.plugin('actions', a_name, actions[a_name])
 
     def setup_logging(self):
         logging.config.dictConfig(self.config['logging'])

@@ -1,7 +1,6 @@
 import logging, os
 import piexif, piexif.helper, json
 import numpy as np
-from pushover import Client
 
 class NumpyEncoder(json.JSONEncoder):
     """ Special json encoder for numpy types """
@@ -21,14 +20,6 @@ class Processor():
     def __init__(self, config):
         self.logger = logging.getLogger("processor")
         self.config = config
-        self.pushover = None
-        if 'actions' in config:
-            for a in config['actions']:
-                if a == 'pushover':
-                    pushover_config = config['actions'][a]
-                    if pushover_config['active'] == 'true':
-                        self.pushover = Client(pushover_config['user-key'], api_token=pushover_config['api-token'])
-
 
     def move_to_dir(self, file_path, dir_path):
         if not os.path.exists(dir_path):
@@ -52,11 +43,8 @@ class Processor():
         self.store_detections_in_exif([input_image, output_image], detections)
         
         try:
-            if action == 'pushover' and self.pushover:
-                if not action_message:
-                    action_message = 'Feature detected in %s!' % input_image
-                with open(output_image, 'rb') as image:
-                    self.pushover.send_message(action_message, attachment=image)
+            if action in self.config.actions:
+                action_instance.action(action_message, input_image)
         except:
             self.logger.error("Unexpected error in action", exc_info=1)
             
