@@ -55,7 +55,7 @@ class aiGuard:
         self.processors = {}
         for p_name in self.config['processors']:
             p_config = self.config['processors'][p_name]
-            p_config.actions = self.actions
+            p_config['actions'] = self.actions
             self.processors[p_name] = Processor(p_config)
 
     def plugin(self, plugin_type, plugin_name, config):
