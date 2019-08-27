@@ -61,8 +61,8 @@ class aiGuard:
         loaded_plugins = self.__dict__[plugin_type]
         if not plugin_name in loaded_plugins:
             self.logger.info('creating plugin %s %s', plugin_type, plugin_name)
-            sys.path.append(plugin_type) #https://stackoverflow.com/questions/25997185/python-importerror-import-by-filename-is-not-supported
-            module = __import__(plugin_name)
+            #sys.path.append(plugin_type) #https://stackoverflow.com/questions/25997185/python-importerror-import-by-filename-is-not-supported
+            module = __import__('%s.%s' % (plugin_type, plugin_name))
             p_class = getattr(module, plugin_name)
             p_instance = p_class(config)
             loaded_plugins[plugin_name] = p_instance 
