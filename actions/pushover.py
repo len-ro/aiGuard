@@ -8,7 +8,7 @@ class Pushover:
         self.logger = logging.getLogger("pushover")
         self.config = config
         self.pushover_api = Client(config['user-key'], api_token=config['api-token'])
-        self.last_time = int(time.time())
+        self.last_time = int(time.time()) - self.config['timeout'] * 2
         if 'lock-file' not in self.config:
             self.config['lock-file'] = 'pushover.disable'
         self.config['lock-file'] = os.path.join(os.getcwd(), self.config['lock-file'])
