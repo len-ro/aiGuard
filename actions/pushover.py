@@ -1,7 +1,7 @@
 import logging, time, os
 from pushover import Client
 
-class Pushover:
+class pushover:
     """Very simple implementation of pushover message with image"""
 
     def __init__(self, config):
