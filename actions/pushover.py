@@ -21,7 +21,8 @@ class Pushover:
             if not os.path.exists(self.config['lock-file']):
                 if delta > self.config['timeout']:
                     if not message:
-                        message = 'Feature detected in %s!' % image_file
+                        message = 'Feature detected in '
+                    message = '%s %s!' % (message, image_file)
                     with open(image_file, 'rb') as image:
                         self.logger.info("Sending pushover notification %s %s" % (message, image_file))
                         self.pushover_api.send_message(message, attachment=image)

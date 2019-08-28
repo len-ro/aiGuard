@@ -30,15 +30,17 @@
             }
         }
     },
+    "actions": {
+        "pushover": {
+            "api-token": "...",
+            "user-key": "...",
+            "timeout": 60,
+            "lock-file": "pushover.disable",
+            "active": "true"
+        }
+    },
     "processors": {
         "notifyPerson": {
-            "actions": {
-                "pushover": {
-                    "api-token": "...",
-                    "user-key": "...",
-                    "active": "false"
-                }
-            },
             "classes": [
                 {   
                     "name": "nothing", 
