@@ -95,7 +95,7 @@ class aiGuard:
 
         if config['type'] == 'YOLOv3':
             detector.setModelTypeAsYOLOv3()
-        elif self.config['type'] == 'RetinaNet':
+        elif config['type'] == 'RetinaNet':
             detector.setModelTypeAsRetinaNet()
 
         detector.setModelPath(config['model'])
