@@ -75,8 +75,8 @@ class Processor():
                 for feature in detections:
                     f_name = feature['name']
                     if f_name in d['keys']:
-                        self.logger.info("[any] Feature %s found in %s, moving to %s" % (f_name, input_image, subdir))
-                        msg = "[any] Feature %s found in" % f_name
+                        self.logger.info("[any] %s found in %s, moving to %s" % (f_name, input_image, subdir))
+                        msg = "[any] %s found in" % f_name
                         self.process_features(input_image, output_image, subdir, subdir_src, detections, action, msg)
                         return
 
@@ -89,8 +89,9 @@ class Processor():
                     if f_name not in d['keys']:
                         has_all_features = False
                 if has_all_features:
-                    self.logger.info("[all] features found in %s, moving to %s" % (input_image, subdir))
-                    msg = "[all] Features %s found in" % ','.join(detected_features)
+                    features_msg = ','.join(detected_features)
+                    self.logger.info("[all] %s found in %s, moving to %s" % (features_msg, input_image, subdir))
+                    msg = "[all] %s found in" % features_msg
                     self.process_features(input_image, output_image, subdir, subdir_src, detections, action, msg)
                     return
             

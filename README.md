@@ -1,5 +1,8 @@
 # aiGuard
-Monitors security cameras images, uses AI to tag them and sends notifications.
+Monitors security cameras images, uses AI to tag them and sends notifications according to the features detected (tags). 
+For instance sends a pushover notification to my phone when a *person* is detected in a camera photo.
+
+This is a companion to the [piBot](https://github.com/len-ro/piBot) home automation. 
 
 # Dependencies
 
@@ -71,3 +74,13 @@ to:
 ```
 
 after restarting the guest I had the following flags: `-march=native -mssse3 -mfma -mcx16 -msse4.1 -msse4.2 -mpopcnt -mavx -mavx2`, I was able to install the latest tensorflow version (1.14) and the speed greatly improved. (`virsh nodeinfo` shows the available number of cores you can use)
+
+# Install as a service (systemd)
+
+```
+sudo cp aiGuard.service /etc/systemd/system/aiGuard.service
+sudo chmod 644 /etc/systemd/system/aiGuard.service
+sudo systemctl enable aiGuard
+sudo systemctl start aiGuard
+sudo systemctl stop aiGuard
+```
