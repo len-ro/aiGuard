@@ -40,10 +40,13 @@ class DirEventHandler(RegexMatchingEventHandler):
         """ wait for file to be complete, not perfect """
         self.logger.info("New file: " + event.src_path)
         file_size = -1
-        while file_size != os.path.getsize(event.src_path):
-            file_size = os.path.getsize(event.src_path)
-            time.sleep(2)
-        self.process_function(event.src_path)        
+        try:
+            while file_size != os.path.getsize(event.src_path):
+                file_size = os.path.getsize(event.src_path)
+                time.sleep(2)
+            self.process_function(event.src_path)  
+        except:
+            self.logger.error("Unexpected error", exc_info=1)      
 
 class aiGuard:
     def __init__(self):

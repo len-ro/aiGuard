@@ -108,3 +108,6 @@ aiSentry.py
 *.log
 *.log.*
 config.json
+test*
+config.*.json
+
