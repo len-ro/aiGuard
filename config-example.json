@@ -54,7 +54,12 @@
                         "mode": "any", 
                         "keys": ["person"]
                     },
-                    "action": "pushover"
+                    "action": "pushover",
+                    "throttle": {
+                        "active": "true",
+                        "delta": 100,
+                        "threshold_size": 1036800
+                    }
                 },
                 {
                     "name": "common", 
