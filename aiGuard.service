@@ -3,7 +3,7 @@ Description=aiGuard service
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 -u aiGuard.py
+ExecStart=/home/aiGuard/aiGuard/.venv/bin/python3 -u aiGuard.py
 WorkingDirectory=/home/aiGuard/aiGuard
 StandardOutput=inherit
 StandardError=inherit

@@ -9,6 +9,7 @@ import threading
 import importlib
 
 from watchdog.observers import Observer
+from watchdog.observer.polling import PollingObserver
 from watchdog.events import RegexMatchingEventHandler
 from imageai.Detection import ObjectDetection
 from queue import Queue
@@ -52,7 +53,7 @@ class aiGuard:
     def __init__(self):
         self.config = json.load(open('config.json', 'r'))
         self.setup_logging()
-        self.observer = Observer()
+        self.observer = PollingObserver(10)
         self.queue = Queue(10)
         self.setup_actions(self.config['actions'])
         self.processors = {}

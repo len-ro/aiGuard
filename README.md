@@ -15,6 +15,17 @@ pip3 install imageai --upgrade
 pip3 install watchdog piexif python-pushover
 ```
 
+> Update 20200718
+
+Since updating my system to ubuntu 20.04 it took some work to find the proper working versions:
+
+```
+pip install tensorflow==2.4.0
+pip install keras==2.4.3 numpy==1.19.3 pillow==7.0.0 scipy==1.4.1 h5py==2.10.0 matplotlib==3.3.2 opencv-python keras-resnet==0.2.0
+pip install imageai --upgrade
+pip3 install watchdog piexif python-pushover
+```
+
 ## The simple setup/motivation
 
 I have several ip cameras which generates a lot of events due to:
